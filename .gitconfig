@@ -1,0 +1,39 @@
+
+[user]
+	email = Takis_a29@hotmail.com
+	name = Takfes
+[credential]
+    helper = store
+[log]
+	decorate = auto
+[diff]
+    tool = meld
+[difftool "meld"]
+    path = /usr/bin/meld
+[difftool]
+    prompt = false
+[merge]
+    tool = meld
+[mergetool "meld"]
+    path = /usr/bin/meld
+[difftool]
+    keepBackup = false
+
+# -------------------------------------------------------------
+# Diff tool
+# https://stackoverflow.com/questions/43317697/setting-up-and-using-meld-as-your-git-difftool-and-mergetool-on-a-mac
+# -------------------------------------------------------------
+[diff]
+	tool = meld
+[difftool]
+	prompt = false
+[difftool "meld"]
+	trustExitCode = true
+	cmd = open -W -a Meld --args \"$LOCAL\" \"$PWD/$REMOTE\"
+[merge]
+	tool = meld
+[mergetool]
+	prompt = false
+[mergetool "meld"]
+	trustExitCode = true
+	cmd = open -W -a Meld --args --auto-merge \"$PWD/$LOCAL\" \"$PWD/$BASE\" \"$PWD/$REMOTE\" --output=\"$PWD/$MERGED\"
