@@ -1,0 +1,39 @@
+
+# =========================================
+# DOCKER ALIASES
+# =========================================
+
+alias dpa="docker ps -a"
+alias dvl="docker volume ls"
+alias dcu="sudo docker-compose -f docker-compose.yml up -d"
+alias dcs="sudo docker-compose stop"
+alias dcd="sudo docker-compose down"
+
+alias dcsa="docker container stop $(docker container ls -aq)"
+alias dcra="docker container rm $(docker container ls -aq)"
+
+alias dcu_="sudo docker-compose up -d" # Start the docker-compose stack in the current directory
+alias dcub="sudo docker-compose up -d --build" # Start the docker-compose stack in the current directory and rebuild the images
+alias dcs_="sudo docker-compose stop" # Stop, delete (down) or restart the docker-compose stack in the current directory
+alias dcd_="docker-compose down"
+alias dcr="docker-compose restart"
+alias drm="docker rm $(docker ps -a -q)" # Remove all containers from this machine
+alias dex="docker exec -it" # Quickly run the docker exec command like this: 'dex container-name bash'
+
+# Formatted docker ps
+alias dps="echo \>\> Running containers : && docker ps --format 'table {{.ID}} - {{.Names}} - {{.Status}} - {{.Image}}'"
+alias dpsa="echo \>\> All containers : && docker ps -a --format 'table {{.ID}} - {{.Names}} - {{.Status}} - {{.Image}}'"
+alias dpt='docker ps -a --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"'
+
+# Get ip's for all docker compose containers
+dip() {
+	docker inspect --format='{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)
+}
+
+
+dnames() {
+	for ID in `docker ps | awk '{print $1}' | grep -v 'CONTAINER'`
+	do
+	docker inspect $ID | grep Name | head -1 | awk '{print $2}' | sed 's/,//g' | sed 's%/%%g' | sed 's/"//g'
+	done
+}
